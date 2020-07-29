@@ -26,7 +26,7 @@ if (config.has('rtpengine')) {
   srf.use('invite', (req, res, next) => {
     const ctype = req.get('Content-Type') || '';
     if (!ctype.includes('multipart/mixed')) {
-      logger.info(`rejecting non-SIPREC INVITE with call-id ${req.get('Call-ID')}`);
+      logger.info(`rejecting non-SIPREC INVITE with call-id ${req.get('Call-ID')} and Cisco-Guid ${req.get('Cisco-Guid')}`);
       return res.send(488);
     }
     next();
