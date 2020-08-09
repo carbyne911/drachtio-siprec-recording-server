@@ -28,12 +28,12 @@ if (config.has('rtpengine')) {
     
     if (!ctype.includes('multipart/mixed')) {
         /****************  CARBYNE START SECTION  ********************/
-        logger.info(`[CARBYNE][SIP-REC] Rejecting non-SIPREC INVITE: call-id=${req.get('Call-ID')}, Cisco-Guid=${req.get('Cisco-Guid')},\nheaders:\n${JSON.stringify(req.msg.headers, null, 2)}, \nbody:\n${req.msg.body}`);
+        logger.info(`[CARBYNE][SIP-REC] Rejecting non-SIPREC INVITE: call-id=${req.get('Call-ID')}, Cisco-Guid=${req.get('Cisco-Guid')}, headers=${JSON.stringify(req.msg.headers, null, 2)}, body=${req.msg.body}`);
         /******************  CARBYNE END SECTION  ********************/
         return res.send(488);
     } else {
         /****************  CARBYNE START SECTION  ********************/
-        logger.info(`[CARBYNE][SIP-REC] Received valid SIP-REC INVITE: call-id=${req.get('Call-ID')}, Cisco-Guid=${req.get('Cisco-Guid')},\nheaders:\n${JSON.stringify(req.msg.headers, null, 2)}, \nbody:\n${req.msg.body}`);
+        logger.info(`[CARBYNE][SIP-REC] Received valid SIP-REC INVITE: call-id=${req.get('Call-ID')}, Cisco-Guid=${req.get('Cisco-Guid')}, headers=${JSON.stringify(req.msg.headers, null, 2)}, body=${req.msg.body}`);
         /******************  CARBYNE END SECTION  ********************/
     }
     next();
