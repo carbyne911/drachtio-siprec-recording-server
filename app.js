@@ -25,9 +25,16 @@ if (config.has('rtpengine')) {
   // we only want to deal with siprec invites (having multipart content) in this application
   srf.use('invite', (req, res, next) => {
     const ctype = req.get('Content-Type') || '';
+    
     if (!ctype.includes('multipart/mixed')) {
-      logger.info(`rejecting non-SIPREC INVITE with call-id ${req.get('Call-ID')} and Cisco-Guid ${req.get('Cisco-Guid')}`);
-      return res.send(488);
+        /****************  CARBYNE START SECTION  ********************/
+        logger.info(`[CARBYNE][SIP-REC] Rejecting non-SIPREC INVITE: call-id=${req.get('Call-ID')}, Cisco-Guid=${req.get('Cisco-Guid')},\nheaders:\n${JSON.stringify(req.msg.headers, null, 2)}, \nbody:\n${req.msg.body}`);
+        /******************  CARBYNE END SECTION  ********************/
+        return res.send(488);
+    } else {
+        /****************  CARBYNE START SECTION  ********************/
+        logger.info(`[CARBYNE][SIP-REC] Received valid SIP-REC INVITE: call-id=${req.get('Call-ID')}, Cisco-Guid=${req.get('Cisco-Guid')},\nheaders:\n${JSON.stringify(req.msg.headers, null, 2)}, \nbody:\n${req.msg.body}`);
+        /******************  CARBYNE END SECTION  ********************/
     }
     next();
   });
