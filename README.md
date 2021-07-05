@@ -1,13 +1,25 @@
-# drachtio-siprec-recording-server [![Build Status](https://secure.travis-ci.org/davehorton/drachtio-siprec-recording-server.png)](http://travis-ci.org/davehorton/drachtio-siprec-recording-server)
+# drachtio-siprec-recording-server ![Build Status](https://github.com/drachtio/drachtio-siprec-recording-server/workflows/CI/badge.svg)
 
 An open source implementation of a SIPREC recording server based on [dractio](https://drachtio.org) and using either
 * [rtpengine](https://github.com/sipwise/rtpengine) or
 * [Freeswitch](https://freeswitch.com/)
 as the back-end recording system.
 
+## Carbyne Information
+
+In this project we're listening to incoming SIP-REC connections in a way that allows understanding what are the media properties of the incoming RTP.
+
+We use that information in order to update MFS main API control, so he will understand how to handle the incoming data.
+
+The data that is being sent is the clock-rate, codec(PCMU/PCMA), and also ports of the incoming RTP for the relevant machine.
+
+#### Upstream Sync
+
+ - **5.7.2021 -** Took the main(master renamed to main) in order to support SDP attributes of **inactive** so the session wouldn't fall.
+
 ## Install
 
-This application requires a [drachtio SIP server](https://github.com/davehorton/drachtio-server) to be installed in your network.  Please refer to [the build and installation instructions here](https://drachtio.org/docs/drachtio-server), or [here](https://github.com/davehorton/drachtio-server).
+This application requires a [drachtio SIP server](https://github.com/drachtio/drachtio-server) to be installed in your network.  Please refer to [the build and installation instructions here](https://drachtio.org/docs/drachtio-server), or [here](https://github.com/drachtio/drachtio-server).
 
 * Copy either `config/default.json.example-rtpengine` or `config/default.json.example-freeswitch` depending on which back-end media server you want to use (it is an either-or choice: you can't mix them) to `config/local.json` and edit to provide the IP  addresses/ports for your configuration (i.e., location of the drachtio server, and either the rtpengine or freeswitch media server). 
 * Run `npm install`
@@ -46,7 +58,7 @@ For an example docker image that implements, see [davehorton/freeswitch-hairpin]
 > Note: when using Freeswitch, the application requires access to a redis server.  redis is used to track and correlate the A and B call legs, using the X-Return-Token header mentioned above.  When using rtpengine as the back-end, redis not required.
 ### Using dockerized versions of drachtio and rtpengine
 
-If you haven't built the [drachtio server](https://github.com/davehorton/drachtio-server) and rtpengine processes (and don't want to), you can run using these docker images:
+If you haven't built the [drachtio server](https://github.com/drachtio/drachtio-server) and rtpengine processes (and don't want to), you can run using these docker images:
 * [rtpengine](https://cloud.docker.com/swarm/davehorton/repository/docker/davehorton/rtpengine)
 * [drachtio-server](https://cloud.docker.com/swarm/drachtio/repository/docker/drachtio/drachtio-server)
 
