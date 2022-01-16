@@ -48,6 +48,7 @@ function parseAndVerifyPayload(filename, delimiter, t) {
       t.error(err);
     });
 }
+
 test('parser: Broadworks SIPREC payload', (t) => {
   parseAndVerifyPayload('broadworks-offer-2.txt', '--foobar', t) ;
 }) ;
@@ -57,6 +58,7 @@ test('parser: Promcomm SIPREC payload', (t) => {
 test('parser: Sonus SIPREC payload', (t) => {
   parseAndVerifyPayload('sonus-siprec-offer.txt', '--sonus-content-delim', t) ;
 }) ;
+
 test('parser: Cisco SIPREC payload', (t) => {
   parseAndVerifyPayload('cisco-siprec-offer.txt', '--uniqueBoundary', t) ;
 }) ;
@@ -68,9 +70,6 @@ test('parser: Connectel SIPREC payload (2)', (t) => {
 }) ;
 test('parser: Connectel SIPREC payload (3)', (t) => {
   parseAndVerifyPayload('connectel-offer3.txt', '--OSS-unique-boundary-42', t) ;
-}) ;
-test('parser: inactive sdp', (t) => {
-  parseAndVerifyPayload('inactive-sdp-offer.txt', '--uniqueBoundary', t) ;
 }) ;
 test('combiner: sample1)', (t) => {
   combineAndVerifyPayloads('sample-sdps.txt', '__split_here__', t) ;
