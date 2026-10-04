@@ -72,7 +72,35 @@ test('parser: Connectel SIPREC payload (3)', (t) => {
   parseAndVerifyPayload('connectel-offer3.txt', '--OSS-unique-boundary-42', t) ;
 }) ;
 test('parser: Cisco SIPREC payload with unescaped ampersand in participant name', (t) => {
-  parseAndVerifyPayload('cisco-siprec-offer-unescaped-ampersand.txt', '--uniqueBoundary', t) ;
+  fs.readFile(`${__dirname}/data/cisco-siprec-offer-unescaped-ampersand.txt`, 'utf8')
+    .then((data) => {
+      const segments = data.split('\n--uniqueBoundary') ;
+      const regex = /.*Content-Type:\s+(.*)\n.*\n([\s\S.]*)$/;
+      const req = {payload: []} ;
+
+      for (let i = 1; i < segments.length; i++) {
+        const arr = regex.exec(segments[i]) ;
+        if (!arr) {
+          continue;
+        }
+        req.payload.push({type: arr[1], content: arr[2]}) ;
+      }
+      return parsePayload({req}) ;
+    })
+    .then((obj) => {
+      t.ok(obj.sdp1, 'parsed first SDP');
+      t.ok(obj.sdp2, 'parsed second SDP');
+      t.ok(obj.caller.aor, 'parsed caller aor');
+      t.ok(obj.sessionId, `parsed session id ${obj.sessionId}`);
+      t.ok(obj.recordingSessionId, `parsed recording session id: ${obj.recordingSessionId}`);
+      t.equal(obj.callee.name, 'DENVER CITY&CNT', 'unescaped ampersand round-trips correctly in callee name');
+      t.end();
+      return;
+    })
+    .catch((err) => {
+      console.error(err.stack);
+      t.error(err);
+    });
 }) ;
 test('combiner: sample1)', (t) => {
   combineAndVerifyPayloads('sample-sdps.txt', '__split_here__', t) ;
