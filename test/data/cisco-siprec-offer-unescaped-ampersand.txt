@@ -1,0 +1,68 @@
+
+--uniqueBoundary
+Content-Disposition: session;handling=required
+Content-Type: application/sdp
+
+v=0
+o=CiscoSystemsSIP-GW-UserAgent 4023 8612 IN IP4 157.254.170.12
+s=SIP Call
+c=IN IP4 157.254.170.12
+t=0 0
+m=audio 23544 RTP/AVP 0 19
+c=IN IP4 157.254.170.12
+a=rtpmap:0 PCMU/8000
+a=rtpmap:19 CN/8000
+a=ptime:20
+a=sendonly
+a=label:1
+m=audio 23230 RTP/AVP 0 19
+c=IN IP4 157.254.170.12
+a=rtpmap:0 PCMU/8000
+a=rtpmap:19 CN/8000
+a=ptime:20
+a=sendonly
+a=label:2
+
+--uniqueBoundary
+Content-Disposition: recording-session
+Content-Type: application/rs-metadata+xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<recording xmlns="urn:ietf:params:xml:ns:recording:1">
+    <datamode>complete</datamode>
+    <session session_id="6HwVb7nIEfGL+egwZeaEMw==">
+        <sipSessionID>76598073090b515ab5102c672251dfe6;remote=560bda2d25135711b6ccec4340eb416b</sipSessionID>
+        <start-time>2026-09-27T16:39:57.024Z</start-time>
+    </session>
+    <participant participant_id="6HwVb7nIEfGL+ugwZeaEMw==">
+        <nameID aor="sip:17203032570@us-gov-west-1-ingress-internal-2">
+        </nameID>
+    </participant>
+    <participantsessionassoc participant_id="6HwVb7nIEfGL+ugwZeaEMw==" session_id="6HwVb7nIEfGL+egwZeaEMw==">
+        <associate-time>2026-09-27T16:39:57.024Z</associate-time>
+    </participantsessionassoc>
+    <stream stream_id="6RrGsLnIEfGMFOgwZeaEMw==" session_id="6HwVb7nIEfGL+egwZeaEMw==">
+        <label>1</label>
+    </stream>
+    <participant participant_id="6HwVb7nIEfGL++gwZeaEMw==">
+        <nameID aor="sip:+17209132000@216.82.227.122">
+            <name xml:lang="en">DENVER CITY&CNT</name>
+        </nameID>
+    </participant>
+    <participantsessionassoc participant_id="6HwVb7nIEfGL++gwZeaEMw==" session_id="6HwVb7nIEfGL+egwZeaEMw==">
+        <associate-time>2026-09-27T16:39:57.024Z</associate-time>
+    </participantsessionassoc>
+    <stream stream_id="6RrGsLnIEfGMFegwZeaEMw==" session_id="6HwVb7nIEfGL+egwZeaEMw==">
+        <label>2</label>
+    </stream>
+    <participantstreamassoc participant_id="6HwVb7nIEfGL+ugwZeaEMw==">
+        <send>6RrGsLnIEfGMFOgwZeaEMw==</send>
+        <recv>6RrGsLnIEfGMFegwZeaEMw==</recv>
+    </participantstreamassoc>
+    <participantstreamassoc participant_id="6HwVb7nIEfGL++gwZeaEMw==">
+        <send>6RrGsLnIEfGMFegwZeaEMw==</send>
+        <recv>6RrGsLnIEfGMFOgwZeaEMw==</recv>
+    </participantstreamassoc>
+</recording>
+
+--uniqueBoundary--
