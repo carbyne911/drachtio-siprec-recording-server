@@ -21,10 +21,6 @@ else {
 if (config.has('rtpengine')) {
   logger.info(config.get('rtpengine'), 'using rtpengine as the recorder');
   callHandler = require('./lib/rtpengine-call-handler');
-  if (process.env.NODE_ENV !== 'test') {
-    const callActivePort = Number(process.env.CALL_ACTIVE_PORT || 8091);
-    require('./lib/call-active').listen(config.get('rtpengine'), callActivePort, logger);
-  }
 
   // we only want to deal with siprec invites (having multipart content) in this application
   srf.use('invite', (req, res, next) => {
